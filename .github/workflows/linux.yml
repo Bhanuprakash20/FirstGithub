@@ -23,5 +23,5 @@ jobs:
           # mkdir -p ~/.ssh
           # echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
           # chmod 600 ~/.ssh/id_rsa
-          ssh -o StrictHostKeyChecking=no -i C:\Users\bprakash27\.ssh SSH_USERNAME@SSH_HOST
+          ssh -o StrictHostKeyChecking=no -i C:\Users\bprakash27\.ssh\my linux secrets.SSH_USERNAME@secrets.SSH_HOST
 
