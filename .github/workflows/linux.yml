@@ -20,11 +20,13 @@ jobs:
         uses: webfactory/ssh-agent@v0.9.0
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
-      - name: Git Pull
+          
+      - name: Connect to server
         run: |
           cd ${{ github.workspace }}
           ssh-keyscan -t rsa ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts
-          ssh ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }} "cd ${{ secrets.DEST_WORK_DIR }} && git pull origin main"
-          # rsync -avz $GITHUB_WORKSPACE/ secrets.SSH_USERNAME@secrets.SSH_HOST:DEST_WORK_DIR
-          echo "Successfully pulled repo."
+          ssh ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }} 
+      - name: deploy to server
+        run: |
+          scp -r secrets.SOURCE_WORK_DIR $secrets.SSH_USERNAME@secrets.SSH_HOST:secrets.DEST_WORK_DIR
 
