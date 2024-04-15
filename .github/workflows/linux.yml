@@ -24,7 +24,7 @@ jobs:
         run: |
           cd ${{ github.workspace }}
           ssh-keyscan -t rsa ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts
-          ssh ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }}
-          rsync -avz $GITHUB_WORKSPACE/ secrets.SSH_USERNAME@secrets.SSH_HOST:DEST_WORK_DIR
+          ssh ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }} "cd ${{ secrets.DEST_WORK_DIR }} && git pull origin main"
+          # rsync -avz $GITHUB_WORKSPACE/ secrets.SSH_USERNAME@secrets.SSH_HOST:DEST_WORK_DIR
           echo "Successfully pulled repo."
 
