@@ -24,12 +24,15 @@ jobs:
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
           
-      - name: Connect to server
-        run: |
-          cd ${{ github.workspace }}
-          ssh-keyscan -t rsa ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts
-          # ssh ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }} 
+      # - name: Connect to server
+      #   run: |
+      #     cd ${{ github.workspace }}
+      #     ssh-keyscan -t rsa ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts
+      #     # ssh ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }} 
       - name: deploy to server
         run: |
-          rsync -avz C:\Users\bprakash27\java practice\first.java secrets.SSH_USERNAME@secrets.SSH_HOST:DEST_WORK_DIR
+          mkdir -p ~/.ssh
+          echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          rsync -r --delete-after --quiet $GITHUB_WORKSPACE/ SSH_USERNAME@secrets.SSH_HOST:/home/ubuntu/github
 
