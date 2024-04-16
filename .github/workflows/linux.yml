@@ -16,6 +16,9 @@ jobs:
       - name: Install SSH Client
         run: sudo apt-get install openssh-client -y
 
+      - name: Install rsync
+        run: sudo apt-get install rsync -y
+
       - name: Configure SSH
         uses: webfactory/ssh-agent@v0.9.0
         with:
@@ -28,5 +31,5 @@ jobs:
           ssh ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }} 
       - name: deploy to server
         run: |
-          scp -r secrets.SOURCE_WORK_DIR $secrets.SSH_USERNAME@secrets.SSH_HOST:secrets.DEST_WORK_DIR
+          rsync -avz SOURCE_WORK_DIR secrets.SSH_USERNAME@secrets.SSH_HOST:DEST_WORK_DIR
 
