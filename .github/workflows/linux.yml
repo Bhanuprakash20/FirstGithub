@@ -28,8 +28,8 @@ jobs:
         run: |
           cd ${{ github.workspace }}
           ssh-keyscan -t rsa ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts
-          ssh ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }} 
+          # ssh ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }} 
       - name: deploy to server
         run: |
-          rsync -avz SOURCE_WORK_DIR secrets.SSH_USERNAME@secrets.SSH_HOST:DEST_WORK_DIR
+          rsync -avz C:\Users\bprakash27\java practice\first.java secrets.SSH_USERNAME@secrets.SSH_HOST:DEST_WORK_DIR
 
