@@ -24,15 +24,12 @@ jobs:
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
           
-      # - name: Connect to server
-      #   run: |
-      #     cd ${{ github.workspace }}
-      #     ssh-keyscan -t rsa ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts
-      #     # ssh ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }} 
-      - name: deploy to server
+      - name: Connect to server
         run: |
-          mkdir -p ~/.ssh
-          echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
-          chmod 600 ~/.ssh/id_rsa
-          rsync -r --delete-after --quiet $GITHUB_WORKSPACE/ SSH_USERNAME@secrets.SSH_HOST:/home/ubuntu/github
+          cd ${{ github.workspace }}
+          ssh-keyscan -t rsa ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts
+          # ssh ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }} 
+      - name: deploy to server
+        run: ssh ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }} "cd ${{ secrets.WORK_DIR }} && git checkout ${{ secrets.MAIN_BRANCH }} && git pull && exit"
+
 
