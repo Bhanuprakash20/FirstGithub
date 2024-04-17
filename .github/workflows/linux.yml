@@ -19,10 +19,10 @@ jobs:
       # - name: Install rsync
       #   run: sudo apt-get install rsync -y
 
-      # - name: Configure SSH
-      #   uses: webfactory/ssh-agent@v0.9.0
-      #   with:
-      #     ssh-private-key: ${{ SSH_PRIVATE_KEY }}
+      - name: Configure SSH
+        uses: webfactory/ssh-agent@v0.9.0
+        with:
+          ssh-private-key: ${{ SSH_PRIVATE_KEY }}
 
       - name: Create SSH key
         run: |
