@@ -1,9 +1,7 @@
 name: Deploy to Linux Server
 
 on:
-  push:
-    branches:
-      - main  # Adjust branch name as needed
+  workflow_dispatch:
 
 jobs:
   deploy:
@@ -26,10 +24,8 @@ jobs:
 
       - name: Create SSH key
         run: |
-          mkdir -p ~/.ssh/
-          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
-          chmod 600 ~/.ssh/id_rsa
-          ssh-keyscan -t rsa ${{ secrets_HOST }} >> ~/.ssh/known_hosts
+          cd ${{ github.workspace }}
+          ssh-keyscan -t rsa ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts
           
       # - name: Connect to server
       #   run: |
