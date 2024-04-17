@@ -19,12 +19,17 @@ jobs:
       # - name: Install rsync
       #   run: sudo apt-get install rsync -y
 
+      # - name: Configure SSH
+      #   uses: webfactory/ssh-agent@v0.9.0
+      #   with:
+      #     ssh-private-key: ${{ SSH_PRIVATE_KEY }}
+
       - name: Create SSH key
         run: |
           mkdir -p ~/.ssh/
           echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
-          ssh-keyscan -t rsa ${{ secrets.HOST }} >> ~/.ssh/known_hosts
+          ssh-keyscan -t rsa ${{ secrets_HOST }} >> ~/.ssh/known_hosts
           
       # - name: Connect to server
       #   run: |
